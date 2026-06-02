@@ -31,7 +31,7 @@ namespace neuroh5
       (
        hid_t             grp,
        const char*       name,
-       const H5L_info_t* info,
+       const H5L_info2_t* info,
        void*             op_data
        )
       {
