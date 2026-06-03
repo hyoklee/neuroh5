@@ -165,7 +165,12 @@ namespace neuroh5
       /* Turn off error handling */
       H5Eset_auto(H5E_DEFAULT, NULL, NULL);
  
-      ierr = H5Gget_objinfo (grp, name, 0, NULL);
+      /* H5Gget_objinfo is a deprecated v1 routine that HDF5 restricts to the
+         native VOL; under a custom VOL connector it fails (returns -1), which
+         silently dropped every attribute and made read_cell_attribute_info
+         return an empty map. H5Lexists is the VOL-compatible existence check
+         and preserves the ierr==0 "object present" semantics below. */
+      ierr = (H5Lexists (grp, name, H5P_DEFAULT) > 0) ? 0 : -1;
       if (ierr == 0)
         {
           string value_path = string(name) + "/" + hdf5::ATTR_VAL;
@@ -214,7 +219,12 @@ namespace neuroh5
       /* Turn off error handling */
       H5Eset_auto(H5E_DEFAULT, NULL, NULL);
  
-      ierr = H5Gget_objinfo (grp, name, 0, NULL);
+      /* H5Gget_objinfo is a deprecated v1 routine that HDF5 restricts to the
+         native VOL; under a custom VOL connector it fails (returns -1), which
+         silently dropped every attribute and made read_cell_attribute_info
+         return an empty map. H5Lexists is the VOL-compatible existence check
+         and preserves the ierr==0 "object present" semantics below. */
+      ierr = (H5Lexists (grp, name, H5P_DEFAULT) > 0) ? 0 : -1;
       if (ierr == 0)
         {
           string value_path = string(name) + "/" + hdf5::ATTR_VAL;
@@ -273,7 +283,12 @@ namespace neuroh5
       /* Turn off error handling */
       H5Eset_auto(H5E_DEFAULT, NULL, NULL);
  
-      ierr = H5Gget_objinfo (grp, name, 0, NULL);
+      /* H5Gget_objinfo is a deprecated v1 routine that HDF5 restricts to the
+         native VOL; under a custom VOL connector it fails (returns -1), which
+         silently dropped every attribute and made read_cell_attribute_info
+         return an empty map. H5Lexists is the VOL-compatible existence check
+         and preserves the ierr==0 "object present" semantics below. */
+      ierr = (H5Lexists (grp, name, H5P_DEFAULT) > 0) ? 0 : -1;
       if (ierr == 0)
         {
           string value_path = string(name) + "/" + hdf5::ATTR_VAL;
